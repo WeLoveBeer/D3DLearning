@@ -1,17 +1,18 @@
 #pragma once
-#include <d3dx9.h>
+#include <d3dx11.h>
+#include <xnamath.h>
 class Camera
 {
 public:
-	Camera(IDirect3DDevice9* pDevice);
+	//Camera(IDirect3DDevice9* pDevice);
 	Camera();
 	~Camera();
-	inline void SetCameraPosition(D3DXVECTOR3 pos) { m_vCameraPosition = pos; };
-	inline void SetTargetPosition(D3DXVECTOR3 pos) { m_vTargetPosition = pos; };
-	inline void SetUpVector(D3DXVECTOR3 vec) { m_vTempUp = vec; };
-	D3DXMATRIX GetViewMatrix(); 
-	D3DXMATRIX GetProjMatrix(); 
-	inline void SetDevice(IDirect3DDevice9* device) { m_pDevice = device; };
+	inline void SetCameraPosition(XMVECTOR pos) { m_vCameraPosition = pos; };
+	inline void SetTargetPosition(XMVECTOR pos) { m_vTargetPosition = pos; };
+	inline void SetUpVector(XMVECTOR vec) { m_vTempUp = vec; };
+	XMMATRIX GetViewMatrix(); 
+	XMMATRIX GetProjMatrix();
+	//inline void SetDevice(IDirect3DDevice9* device) { m_pDevice = device; };
 	void SetProjParameter(FLOAT fovy,FLOAT aspect,FLOAT znear,FLOAT zfar);
 	void RotateRight(FLOAT degree);
 	void RotateUp(FLOAT degree);
@@ -19,23 +20,26 @@ public:
 	void MoveRight(FLOAT dist);
 	void MoveUp (FLOAT dist);
 	void MoveFar(FLOAT dist);
+	XMVECTOR GetEyePos() { return m_vCameraPosition; };
+	XMVECTOR GetAtPos() { return m_vTargetPosition; };
+	XMVECTOR GetUpPos() { return m_vTempUp; };
 
 private:
-	IDirect3DDevice9* m_pDevice;
-	D3DXVECTOR3 m_vRight;
-	D3DXVECTOR3 m_vUp;
-	D3DXVECTOR3 m_vLookAt;
-	D3DXVECTOR3 m_vCameraPosition;
-	D3DXVECTOR3 m_vTargetPosition;
-	D3DXVECTOR3 m_vTempUp;
+	//IDirect3DDevice9* m_pDevice;
+	XMVECTOR m_vRight;
+	XMVECTOR m_vUp;
+	XMVECTOR m_vLookAt;
+	XMVECTOR m_vCameraPosition;
+	XMVECTOR m_vTargetPosition;
+	XMVECTOR m_vTempUp;
 
 	FLOAT		m_Fov;
 	FLOAT		m_Aspect;
 	FLOAT		m_zNear;
 	FLOAT		m_zFar;
 
-	D3DXMATRIX m_matView;
-	D3DXMATRIX m_matProj;
+	XMMATRIX m_matView;
+	XMMATRIX m_matProj;
 private:
 	void calcViewMatrix();
 	void calcProjMatrix();

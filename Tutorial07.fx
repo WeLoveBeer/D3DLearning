@@ -10,21 +10,47 @@
 Texture2D txDiffuse : register( t0 );
 SamplerState samLinear : register( s0 );
 
-cbuffer cbNeverChanges : register( b0 )
+cbuffer cbNeverChanges : register(b0)
 {
-    matrix View;
+	matrix Projection;
+
+	float4 AmbientRate;// 材质对环境光的反射率
+	float4 DiffuseRate;//材质对漫反射光的反射率
+	float4 SpecularRate;//材质对镜面光的反射率
+	float Power;//材质的镜面光反射系数
 };
 
-cbuffer cbChangeOnResize : register( b1 )
+
+cbuffer cbChangesEveryFrame : register(b1)
 {
-    matrix Projection;
+	matrix World;
 };
 
-cbuffer cbChangesEveryFrame : register( b2 )
+cbuffer cbRareChange: register(b2)
 {
-    matrix World;
-    float4 vMeshColor;
+	matrix View;
+	float4 EyePosition;
 };
+
+cbuffer LightBuffer: register(b3)
+{
+	int type;
+	//float4 lightPosition;
+	float4 lightDirection;
+	float4 lightAmbient;//强度
+	float4 lightDiffuse;
+	float4 lightSpecular;
+	/*
+	float4 lightAtt0;//常量衰减因子
+	float4 lightAtt1;//一次衰减因子
+	float4 lightAtt2;//二次衰减因子
+	float  lightAlpha;//内锥角度
+	float  lightBeta;//外锥角度
+	float  lightFailOff;//衰减系数*/
+};
+
+
+
 
 
 //--------------------------------------------------------------------------------------
@@ -32,12 +58,18 @@ struct VS_INPUT
 {
     float4 Pos : POSITION;
     float2 Tex : TEXCOORD0;
+	//float3 Norm: NORMAL;
 };
 
 struct PS_INPUT
 {
     float4 Pos : SV_POSITION;
     float2 Tex : TEXCOORD0;
+	//float3 Norm: TEXCOORD1;
+	//float4 ViewDirection : TEXCOORD2;
+	//float4 LightVector : TEXCOORD3;
+
+
 };
 
 
@@ -52,6 +84,12 @@ PS_INPUT VS( VS_INPUT input )
     output.Pos = mul( output.Pos, Projection );
     output.Tex = input.Tex;
     
+	/*output.Norm = mul(input.Norm,(float3x3)World);
+	output.Norm = normalize(output.Norm);
+
+	float worldPos = mul(input.Pos,World);
+	output.ViewDirection = Ey*/
+
     return output;
 }
 
@@ -59,7 +97,16 @@ PS_INPUT VS( VS_INPUT input )
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
-float4 PS( PS_INPUT input) : SV_Target
+float4 PS(PS_INPUT input) : SV_Target
 {
 	return txDiffuse.Sample(samLinear, input.Tex);// *vMeshColor;
 }
+
+/*Technique T0
+{
+	pass P0
+	{
+		SetVertexShader(CompileShader(vs_5_0,VS()));
+		SetPixelShader(CompileShader(ps_5_0,PS()));
+	};
+}*/
