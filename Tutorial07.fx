@@ -34,8 +34,8 @@ cbuffer cbRareChange: register(b2)
 
 cbuffer LightBuffer: register(b3)
 {
-	int type;
-	//float4 lightPosition;
+	//int type;
+	float4 lightPosition;
 	float4 lightDirection;
 	float4 lightAmbient;//Ç¿¶È
 	float4 lightDiffuse;
@@ -57,17 +57,17 @@ cbuffer LightBuffer: register(b3)
 struct VS_INPUT
 {
     float4 Pos : POSITION;
-    float2 Tex : TEXCOORD0;
-	//float3 Norm: NORMAL;
+    float2 Tex : TEXCOORD;
+	float3 Norm: NORMAL;
 };
 
 struct PS_INPUT
 {
     float4 Pos : SV_POSITION;
     float2 Tex : TEXCOORD0;
-	//float3 Norm: TEXCOORD1;
-	//float4 ViewDirection : TEXCOORD2;
-	//float4 LightVector : TEXCOORD3;
+	float3 Norm: TEXCOORD1;
+	float4 ViewDirection : TEXCOORD2;
+	float4 LightVector : TEXCOORD3;
 
 
 };
@@ -84,11 +84,17 @@ PS_INPUT VS( VS_INPUT input )
     output.Pos = mul( output.Pos, Projection );
     output.Tex = input.Tex;
     
-	/*output.Norm = mul(input.Norm,(float3x3)World);
+	output.Norm = mul(input.Norm,(float3x3)World);
 	output.Norm = normalize(output.Norm);
 
-	float worldPos = mul(input.Pos,World);
-	output.ViewDirection = Ey*/
+	float4 worldPos = mul(input.Pos,World);
+	output.ViewDirection = EyePosition - worldPos;
+	output.ViewDirection = normalize(output.ViewDirection);
+
+	output.LightVector = lightPosition - worldPos;
+	output.LightVector = normalize(output.LightVector);
+	output.LightVector.w = length(lightPosition - worldPos);
+
 
     return output;
 }
@@ -99,7 +105,27 @@ PS_INPUT VS( VS_INPUT input )
 //--------------------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target
 {
-	return txDiffuse.Sample(samLinear, input.Tex);// *vMeshColor;
+	float4 finalColor;
+	float4 ambientColor, diffuseColor, specularColor;
+	float3 lightVector = -lightDirection.xyz;
+	lightVector = normalize(lightVector);
+
+	ambientColor = float4(1.0f, 1.0f, 1.0f, 1.0f) * lightAmbient;
+
+	float diffuseFactor = dot(lightVector,input.Norm);
+	if (diffuseFactor > 0.0f)
+	{
+		diffuseColor = float4(1.0f,1.0f,1.0f,1.0f) * lightDiffuse * diffuseFactor;
+		
+		float3 reflection = reflect(-lightVector,input.Norm);
+		float specularFactor = pow(max(dot(reflection,input.ViewDirection.xyz),0.0f),Power);
+		specularColor = float4(1.0f, 1.0f, 1.0f, 1.0f) * lightSpecular * specularFactor;
+
+	}
+	finalColor = saturate(ambientColor + diffuseColor);// +specularColor);
+
+
+	return txDiffuse.Sample(samLinear, input.Tex)*0.5+ 0.5*finalColor;// *vMeshColor;
 }
 
 /*Technique T0

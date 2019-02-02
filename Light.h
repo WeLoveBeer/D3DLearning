@@ -13,9 +13,9 @@ struct Material
 
 struct Light1
 {
-	float light_type;
+	//float light_type;
 
-	//XMFLOAT4 pos;
+	XMFLOAT4 pos;
 	XMFLOAT4 direction;
 	XMFLOAT4 _ambient;
 	XMFLOAT4 _diffuse;

@@ -347,6 +347,7 @@ HRESULT InitDevice()
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(layout);
 
@@ -431,32 +432,32 @@ HRESULT InitDevice()
 
 		// car top begin with 24
 		//front
-		{ carLeftFrontDown, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,2,-1)},
-		{ carRightFrontDown, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,2,-1)},
-		{ carRightFrontUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,2,-1)},
-		{ carLeftFrontUp, XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,2,-1)},
+		{ carLeftFrontDown, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,1,-0.45)},
+		{ carRightFrontDown, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,1,-0.45)},
+		{ carRightFrontUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,1,-0.45)},
+		{ carLeftFrontUp, XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,1,-0.45)},
 		//back
 
-		{ carRightBackDown,  XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(1,2,1)},
-		{ carLeftBackDown,XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(-1,2,1)},
-		{ carLeftBackUp,XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(-1,2,1)},
-		{ carRightBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(1,2,1)},
+		{ carRightBackDown,  XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(1,1,0.45)},
+		{ carLeftBackDown,XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(-1,1,0.45)},
+		{ carLeftBackUp,XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(-1,1,0.45)},
+		{ carRightBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(1,1,0.45)},
 
 		//left
-		{ carLeftBackDown,  XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,2,1)},
-		{ carLeftFrontDown,XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(-1,2,-1)},
-		{ carLeftFrontUp,XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(-1,2,-1)},
-		{ carLeftBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,2,1)},
+		{ carLeftBackDown,  XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,1,0.45)},
+		{ carLeftFrontDown,XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(-1,1,-0.45)},
+		{ carLeftFrontUp,XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(-1,1,-0.45)},
+		{ carLeftBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,1,0.45)},
 		//right
-		{ carRightFrontDown, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(1,2,-1)},
-		{ carRightBackDown, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,2,1)},
-		{ carRightBackUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,2,1)},
-		{ carRightFrontUp, XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(1,2,-1)},
+		{ carRightFrontDown, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(1,1,-0.45)},
+		{ carRightBackDown, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,1,0.45)},
+		{ carRightBackUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,1,0.45)},
+		{ carRightFrontUp, XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(1,1,-0.45)},
 		//up
-		{ carLeftFrontUp, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,2,-1)},
-		{ carRightFrontUp, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,2,-1)},
-		{ carRightBackUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,2,1)},
-		{ carLeftBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,2,1)},
+		{ carLeftFrontUp, XMFLOAT2(0.0f, 1.0f) ,XMFLOAT3(-1,1,-0.45)},
+		{ carRightFrontUp, XMFLOAT2(1.0f, 1.0f) ,XMFLOAT3(1,1,-0.45)},
+		{ carRightBackUp, XMFLOAT2(1.0f, 0.0f) ,XMFLOAT3(1,1,0.45)},
+		{ carLeftBackUp,  XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,1,0.45)},
 		//wheel,leftface44
 		{ XMFLOAT3(-0.1f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,0,0)},
 		{ XMFLOAT3(-0.1f, -0.15f, 0.36f), XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(-1,0,0)},
@@ -769,9 +770,10 @@ HRESULT InitDevice()
 
 	Light dirLight;
 	//dirLight.light_type = 0;
-	dirLight.direction = XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f);
+	dirLight.pos = XMFLOAT4(-10.0f,10.0f,0.0f,1.0f);
+	dirLight.direction = XMFLOAT4(10.0f, -10.0f, 0.0f, 1.0f);
 	dirLight._ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	dirLight._diffuse = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	dirLight._diffuse = XMFLOAT4(0.8f, 0.8f, 0.8, 1.0f);
 	dirLight._specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	g_pImmediateContext->UpdateSubresource(g_Light, 0, NULL, &dirLight, 0, 0);
 	return S_OK;
@@ -1063,12 +1065,12 @@ void Render()
 	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 	//change view matrix to let camera follow the car
-	XMVECTOR Eye = XMVector3Transform(XMVectorSet(0.0f, 4.0f, -6.0f, 0.0f), g_World);//is 3,not 4
+	/*XMVECTOR Eye = XMVector3Transform(XMVectorSet(0.0f, 4.0f, -6.0f, 0.0f), g_World);//is 3,not 4
 	XMVECTOR At = XMVector3Transform(XMVectorSet(0.0f, 3.0f, 0.0f, 0.0f), g_World);
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	g_Camera.SetCameraPosition(Eye);
 	g_Camera.SetTargetPosition(At);
-	g_Camera.SetUpVector(Up);
+	g_Camera.SetUpVector(Up);*/
 
 	//g_Camera.RotateUp(0.1*g_mouseXDelta * 3.1415926 / 180);
 	//g_Camera.RotateRight(0.1*g_mouseYDelta * 3.1415926 / 180);
@@ -1105,7 +1107,7 @@ void Render()
 	g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
 	g_pImmediateContext->PSSetConstantBuffers(1, 2, &g_pCBChangesEveryFrame);
 	//g_pImmediateContext->PSSetConstantBuffers(2, 4, &g_Material);
-	//g_pImmediateContext->PSSetConstantBuffers(3, 1, &g_Light);
+	g_pImmediateContext->PSSetConstantBuffers(3, 1, &g_Light);
 	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead);
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
 
