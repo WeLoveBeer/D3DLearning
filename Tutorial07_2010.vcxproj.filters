@@ -16,6 +16,11 @@
   <ItemGroup>
     <ClCompile Include="Tutorial07.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="CarModel.cpp" />
+    <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="RenderShadowTexture.cpp" />
+    <ClCompile Include="ShadowShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tutorial07.fx">
@@ -32,7 +37,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Light.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="CarModel.h" />
+    <ClInclude Include="Graphic.h" />
+    <ClInclude Include="RenderShadowTexture.h" />
+    <ClInclude Include="ShadowShader.h" />
   </ItemGroup>
 </Project>

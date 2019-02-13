@@ -11,6 +11,9 @@ struct SimpleVertex
 struct CBNeverChanges
 {
 	XMMATRIX mProjection;
+	XMMATRIX mLightView;
+	XMMATRIX mLightProj;
+
 	XMFLOAT4 ambient;
 	XMFLOAT4 specular;
 	XMFLOAT4 diffuse;
@@ -27,6 +30,7 @@ struct CBRareChanges
 {
 	XMMATRIX mView;
 	XMVECTOR mEyePos;
+	int flag;
 };
 
 struct Light

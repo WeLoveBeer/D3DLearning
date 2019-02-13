@@ -95,35 +95,37 @@ d:\dx11\include\xnamathconvert.inl(4832): warning C4838: 从“unsigned int”�
 d:\dx11\include\xnamathvector.inl(1269): warning C4838: 从“unsigned int”转换到“INT”需要收缩转换
 d:\dx11\include\xnamathmisc.inl(518): warning C4838: 从“unsigned int”转换到“INT”需要收缩转换
 d:\dx11\include\xnamathmisc.inl(519): warning C4838: 从“unsigned int”转换到“INT”需要收缩转换
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(384): warning C4244: “参数”: 从“UINT”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(461): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(474): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(486): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(496): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(506): warning C4244: “=”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(507): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(508): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(524): warning C4244: “=”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(525): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(526): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(768): warning C4244: “初始化”: 从“int”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(781): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(789): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(795): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(803): warning C4244: “初始化”: 从“int”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(816): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(827): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(836): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(871): warning C4458: “is_wheel_ture”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(84): note: 参见“Graphic::is_wheel_ture”的声明
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(872): warning C4458: “is_left_pressed”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(85): note: 参见“Graphic::is_left_pressed”的声明
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(873): warning C4458: “is_right_pressed”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(86): note: 参见“Graphic::is_right_pressed”的声明
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(874): warning C4458: “is_up_pressed”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(87): note: 参见“Graphic::is_up_pressed”的声明
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(875): warning C4458: “is_down_pressed”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(88): note: 参见“Graphic::is_down_pressed”的声明
-d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(876): warning C4458: “is_mouseleft_pressed”的声明隐藏了类成员
-  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(89): note: 参见“Graphic::is_mouseleft_pressed”的声明
-  Tutorial07_2010.vcxproj -> D:\DX11\Samples\C++\Direct3D\Tutorials\Tut04_Lights\Debug\Tutorial07.exe
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(274): warning C4244: “参数”: 从“UINT”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(351): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(364): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(376): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(386): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(396): warning C4244: “=”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(397): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(398): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(413): warning C4244: “=”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(414): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(415): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(440): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(441): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(442): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(443): warning C4244: “参数”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(662): warning C4244: “初始化”: 从“int”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(675): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(683): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(689): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(697): warning C4244: “初始化”: 从“int”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(710): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(721): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(730): warning C4244: “return”: 从“double”转换到“FLOAT”，可能丢失数据
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(765): warning C4458: “is_wheel_ture”的声明隐藏了类成员
+  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(95): note: 参见“Graphic::is_wheel_ture”的声明
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(766): warning C4458: “is_left_pressed”的声明隐藏了类成员
+  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(96): note: 参见“Graphic::is_left_pressed”的声明
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(767): warning C4458: “is_right_pressed”的声明隐藏了类成员
+  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(97): note: 参见“Graphic::is_right_pressed”的声明
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(768): warning C4458: “is_up_pressed”的声明隐藏了类成员
+  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(98): note: 参见“Graphic::is_up_pressed”的声明
+d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.cpp(769): warning C4458: “is_down_pressed”的声明隐藏了类成员
+  d:\dx11\samples\c++\direct3d11\tutorials\tutorial07\graphic.h(99): note: 参见“Graphic::is_down_pressed”的声明
+  Tutorial07_2010.vcxproj -> D:\DX11\Samples\C++\Direct3D\Tutorials\Tut04_Lights\x64\Debug\Tutorial07.exe

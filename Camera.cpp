@@ -8,16 +8,27 @@ Camera::Camera()
 Camera::~Camera()
 {
 }
+void Camera::Initialize(XMVECTOR eye, XMVECTOR at, XMVECTOR up)
+{
+	m_vCameraPosition = eye;
+	m_vTargetPosition = at;
+	m_vTempUp = up;
 
+	m_vLookAt = at - eye;
+	m_vLookAt = XMVector3Normalize(m_vLookAt);
+	m_vRight = XMVector3Cross(up, m_vLookAt);
+	m_vRight = XMVector3Normalize(m_vRight);
+	m_vUp = XMVector3Cross(m_vLookAt, m_vRight);
+	m_vUp = XMVector3Normalize(m_vUp);
+}
+void Camera::MakeTransform(XMMATRIX m)
+{
+	m_vCameraPosition = XMVector3Transform(m_vCameraPosition, m);
+}
 
 void Camera::calcViewMatrix()
 {
-	m_vLookAt = m_vTargetPosition - m_vCameraPosition;
-	m_vLookAt = XMVector3Normalize(m_vLookAt);
-	m_vRight = XMVector3Cross(m_vTempUp, m_vLookAt);
-	m_vRight = XMVector3Normalize(m_vRight );
-	m_vUp = XMVector3Cross(m_vLookAt, m_vRight);
-	m_vUp = XMVector3Normalize(m_vUp);
+	
 
 	XMFLOAT4 right;
 	XMFLOAT4 up;

@@ -23,8 +23,9 @@ public:
 	XMVECTOR GetEyePos() { return m_vCameraPosition; };
 	XMVECTOR GetAtPos() { return m_vTargetPosition; };
 	XMVECTOR GetUpPos() { return m_vTempUp; };
+	void Initialize(XMVECTOR,XMVECTOR,XMVECTOR);
+	void MakeTransform(XMMATRIX m);
 
-private:
 	//IDirect3DDevice9* m_pDevice;
 	XMVECTOR m_vRight;
 	XMVECTOR m_vUp;

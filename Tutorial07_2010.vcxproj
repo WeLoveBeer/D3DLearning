@@ -42,6 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -367,9 +368,13 @@
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup />
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CarModel.cpp" />
+    <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="RenderShadowTexture.cpp" />
+    <ClCompile Include="ShadowShader.cpp" />
     <ClCompile Include="Tutorial07.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -377,14 +382,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CarModel.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="RenderShadowTexture.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="ShadowShader.h" />
     <ResourceCompile Include="Tutorial07.rc" />
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
