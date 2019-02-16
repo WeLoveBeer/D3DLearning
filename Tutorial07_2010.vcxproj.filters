@@ -5,27 +5,18 @@
       <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="DXUT">
-      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
       <Extensions>fx;fxh;hlsl</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tutorial07.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="CarModel.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="RenderShadowTexture.cpp" />
     <ClCompile Include="ShadowShader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Tutorial07.fx">
-      <Filter>Shaders</Filter>
-    </None>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -35,12 +26,15 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="common.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="CarModel.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="RenderShadowTexture.h" />
     <ClInclude Include="ShadowShader.h" />
+    <ClInclude Include="misc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RenderCar.fx">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

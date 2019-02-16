@@ -156,10 +156,10 @@ void CarModel::Init()
 
 
 		//floor begin with 86
-		//{ XMFLOAT3(-50.0f, 0.0f, -50.0f), XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
-		//{ XMFLOAT3(50.0f, 0.0f, -50.0f), XMFLOAT2(100.0f, 0.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
-		//{ XMFLOAT3(50.0f, 0.0f, 50.0f), XMFLOAT2(100.0f, 100.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
-		//{ XMFLOAT3(-50.0f, 0.0f, 50.0f), XMFLOAT2(0.0f, 100.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
+		{ XMFLOAT3(-32.0f, 0.0f, -32.0f), XMFLOAT2(0.0f, 0.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
+		{ XMFLOAT3(32.0f, 0.0f, -32.0f), XMFLOAT2(64.0f, 0.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
+		{ XMFLOAT3(32.0f, 0.0f, 32.0f), XMFLOAT2(64.0f, 64.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
+		{ XMFLOAT3(-32.0f, 0.0f, 32.0f), XMFLOAT2(0.0f, 64.0f) ,XMFLOAT3(0.0f,1.0f,0.0f) },
 
 
 
@@ -279,8 +279,8 @@ void CarModel::Init()
 		82,84,85,
 
 		//floor
-		//86,88,87,
-		//86,89,88,
+		86,88,87,
+		86,89,88,
 
 
 	};

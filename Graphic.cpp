@@ -124,7 +124,7 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 	
 	// Compile the vertex shader
 	ID3DBlob* pVSBlob = NULL;
-	hr = CompileShaderFromFile(L"Tutorial07.fx", "VS", "vs_4_0", &pVSBlob);
+	hr = CompileShaderFromFile(L"RenderCar.fx", "VS", "vs_4_0", &pVSBlob);
 	if (FAILED(hr))
 	{
 		MessageBox(NULL,
@@ -138,8 +138,6 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 		pVSBlob->Release();
 		return hr;
 	}
-	
-
 
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -162,7 +160,7 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 
 	// Compile the pixel shader
 	ID3DBlob* pPSBlob = NULL;
-	hr = CompileShaderFromFile(L"Tutorial07.fx", "PS", "ps_4_0", &pPSBlob);
+	hr = CompileShaderFromFile(L"RenderCar.fx", "PS", "ps_4_0", &pPSBlob);
 	if (FAILED(hr))
 	{
 		MessageBox(NULL,
@@ -179,9 +177,6 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 	g_car->Init();
 	g_car->PrepareRender();
 
-	g_objModel = new Model();
-	g_objModel->Initialize(g_pd3dDevice, /*"Res/cube.txt",*/L"Res/wall01.dds",1);
-	g_objModel->SetPosition(0.0f,0.0f,10.0f);
 
 	// Create the constant buffers
 	D3D11_BUFFER_DESC bd;
@@ -216,13 +211,12 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_back.png", NULL, NULL, &g_pTextureCarFront, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_side.png", NULL, NULL, &g_pTextureCarSide, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_head.png", NULL, NULL, &g_pTextureCarHead, NULL);
-	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_head.png", NULL, NULL, &g_pTextureCarHead1, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_window.png", NULL, NULL, &g_pTextureCarWindow, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_window_back.png", NULL, NULL, &g_pTextureCarWindowBack, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/car_wheel.png", NULL, NULL, &g_pTextureCarWheel, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/black.bmp", NULL, NULL, &g_pTextureCarWheel1, NULL);
 	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/skybox.png", NULL, NULL, &g_pTextureSkyBox, NULL);
-	D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/height1.png", NULL, NULL, &g_pTextureHeight, NULL);
+	//D3DX11CreateShaderResourceViewFromFile(g_pd3dDevice, L"Res/height1.png", NULL, NULL, &g_pTextureHeight, NULL);
 
 	if (FAILED(hr))
 		return hr;
@@ -260,7 +254,7 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	g_Camera.Initialize(Eye, At, Up);
 
-	XMVECTOR lightPos = XMVectorSet(-10.0f, 10.0f, 0.0f, 0.0f);
+	XMVECTOR lightPos = XMVectorSet(-30.0f, 30.0f, 0.0f, 0.0f);
 	XMVECTOR lightAt = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	XMVECTOR lightUp = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	g_LightView = XMMatrixLookAtLH(lightPos, lightAt, lightUp);
@@ -271,7 +265,8 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 
 	// Initialize the projection matrix
 	g_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, width / (FLOAT)height, 0.01f, 100.0f);
-	g_LightProj = XMMatrixOrthographicLH(width, height, 0.01f, 100.0f);
+	//平行光投影 用正交矩阵
+	g_LightProj = XMMatrixOrthographicLH(70,50,0.01f,100.0f);
 	CBNeverChanges cbNeverChange;
 	XMFLOAT4X4 temp;
 	XMStoreFloat4x4(&temp, g_Projection);
@@ -292,7 +287,6 @@ HRESULT Graphic::InitDevice(HWND hwnd)
 	g_pImmediateContext->UpdateSubresource(g_pCBRareChanges, 0, NULL, &cbRareChange, 0, 0);
 
 	Light dirLight;
-	//dirLight.light_type = 0;
 	dirLight.pos = XMFLOAT4(-10.0f, 10.0f, 0.0f, 1.0f);
 	dirLight.direction = XMFLOAT4(10.0f, -10.0f, 0.0f, 1.0f);
 	dirLight._ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
@@ -319,8 +313,7 @@ void Graphic::CleanupDevice()
 
 	if (g_pCBNeverChanges) g_pCBNeverChanges->Release();
 	if (g_pCBChangesEveryFrame) g_pCBChangesEveryFrame->Release();
-	g_car->Release();
-	//delete g_car;
+	
 	if (g_pVertexLayout) g_pVertexLayout->Release();
 	if (g_pVertexShader) g_pVertexShader->Release();
 	if (g_pPixelShader) g_pPixelShader->Release();
@@ -330,6 +323,10 @@ void Graphic::CleanupDevice()
 	if (g_pSwapChain) g_pSwapChain->Release();
 	if (g_pImmediateContext) g_pImmediateContext->Release();
 	if (g_pd3dDevice) g_pd3dDevice->Release();
+	if (g_car) g_car->Release();
+	delete g_car;
+	//delete g_renderSadowTexture;
+	//delete g_shadowShader;
 }
 void Graphic::Render()
 {
@@ -337,10 +334,10 @@ void Graphic::Render()
 	XMMATRIX translation = XMMatrixIdentity();
 	XMMATRIX rotation = XMMatrixIdentity();
 	XMMATRIX rotation_skybox = XMMatrixIdentity();
-	XMMATRIX lastWorld = g_World;
 	FLOAT rotateDelta = 0.1;
-	
 	/******update world matrix******/
+	//判断当前鼠标键盘状态，改变WORLD 矩阵
+	//上键正在按下 
 	if (is_up_pressed)
 	{
 		up_pressing_second += 1;
@@ -352,7 +349,7 @@ void Graphic::Render()
 
 		g_World = g_World * translation;
 	}
-
+	//下键正在按下
 	else if (is_down_pressed)
 	{
 		up_pressing_second -= 1;
@@ -389,13 +386,13 @@ void Graphic::Render()
 		g_World = g_World * translation;
 
 	}
-
+	//左键正在按下
 	if (is_left_pressed)
 	{
 		left_pressing_second += 1;
 		rotateDelta = 0.1*GenRotateDelta(up_pressing_second, false);
-		rotation = XMMatrixRotationY(-5 * rotateDelta * 3.1415926 / 180); //XMMatrixRotationY();
-		rotation_skybox = XMMatrixRotationY(3 * rotateDelta * 3.1415926 / 180); //XMMatrixRotationY();
+		rotation = XMMatrixRotationY(-5 * rotateDelta * 3.1415926 / 180);
+		rotation_skybox = XMMatrixRotationY(3 * rotateDelta * 3.1415926 / 180); 
 		if (is_wheel_ture)
 		{
 			g_WheelRotationY = XMMatrixRotationY(-20 * 3.1415926 / 180);
@@ -407,6 +404,7 @@ void Graphic::Render()
 		}
 		g_World = rotation * g_World;
 	}
+	//右键正在按下
 	else if (is_right_pressed)
 	{
 		right_pressing_second += 1;
@@ -427,7 +425,7 @@ void Graphic::Render()
 		g_WheelRotationY = XMMatrixIdentity();
 	g_SkyBoxRotation *= rotation_skybox;
 
-
+	//轮胎到车的model矩阵
 	XMMATRIX mTranslate = XMMatrixTranslation(-1.3f, 0.35f, 1.1f);
 	g_FrontLeftWheelToCar = mTranslate;
 	mTranslate = XMMatrixTranslation(1.3f, 0.35f, 1.1f);
@@ -437,17 +435,17 @@ void Graphic::Render()
 	mTranslate = XMMatrixTranslation(1.3f, 0.35f, -1.1f);
 	g_BackRightWheelToCar = mTranslate;
 	/******update camera******/
-	g_LMouseRotation *= XMMatrixRotationY(g_leftMouseXDelta/5 * 3.1415926 / 180);
-	g_LMouseRotation *= XMMatrixRotationX(g_leftMouseYDelta / 5 * 3.1415926 / 180);
-	g_RMouseRotation *= XMMatrixRotationY(g_rightMouseXDelta / 5 * 3.1415926 / 180);
-	g_RMouseRotation *= XMMatrixRotationX(g_rightMouseYDelta / 5 * 3.1415926 / 180);
+	g_LMouseRotation *= XMMatrixRotationY(g_leftMouseXDelta/10 * 3.1415926 / 180);
+	g_LMouseRotation *= XMMatrixRotationX(g_leftMouseYDelta / 10 * 3.1415926 / 180);
+	g_RMouseRotation *= XMMatrixRotationY(g_rightMouseXDelta / 10 * 3.1415926 / 180);
+	g_RMouseRotation *= XMMatrixRotationX(g_rightMouseYDelta / 10 * 3.1415926 / 180);
 	XMVECTOR Eye,At,Up;
-	
+	// 更新第一人称视角
 	Eye = XMVector3Transform(XMVectorSet(0.0f, 4.0f, -8.0f, 0.0f), g_LMouseRotation*g_World);//is 3,not 4
 	At = XMVector3Transform(XMVectorSet(0.0f, 3.0f, 0.0f, 0.0f),  g_World);//is 3,not 4
 	Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	g_Camera.Initialize(Eye, At, Up);
-
+	// 更新第三人称视角
 	XMVECTOR lookat = At - Eye;
 	lookat = XMVector3Transform(lookat, g_RMouseRotation);
 	
@@ -458,10 +456,10 @@ void Graphic::Render()
 	g_Camera.Initialize(Eye, At, Up);/**/
 
 	g_car->PrepareRender();
-	RenderShadow(g_World,g_Camera.GetViewMatrix(),g_Projection);
-	g_car->PrepareRender();
-	/**/
-
+	//首先，渲染阴影到纹理
+	RenderShadow(g_World,g_LightView,g_LightProj);
+	
+	
 	float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; // red, green, blue, alpha
 	g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
 	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -475,7 +473,7 @@ void Graphic::Render()
 	cbRareChange.mView = XMMatrixTranspose(g_Camera.GetViewMatrix());
 	cbRareChange.flag = 0;
 	g_pImmediateContext->UpdateSubresource(g_pCBRareChanges, 0, NULL, &cbRareChange, 0, 0);
-
+	//绑定shader
 	g_pImmediateContext->VSSetShader(g_pVertexShader, NULL, 0);
 	g_pImmediateContext->VSSetConstantBuffers(0, 1, &g_pCBNeverChanges);
 	g_pImmediateContext->VSSetConstantBuffers(1, 1, &g_pCBChangesEveryFrame);
@@ -486,11 +484,12 @@ void Graphic::Render()
 	g_pImmediateContext->PSSetConstantBuffers(1, 2, &g_pCBChangesEveryFrame);
 	g_pImmediateContext->PSSetConstantBuffers(3, 1, &g_Light);
 	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead);
-	g_pImmediateContext->PSSetShaderResources(1, 1, &g_pTextureCarHead);//??
+	ID3D11ShaderResourceView* tex = g_renderSadowTexture->GetShaderResourceView();
+	g_pImmediateContext->PSSetShaderResources(1, 1, &tex);//
 	g_pImmediateContext->PSSetShaderResources(2, 1, &g_pTextureHeight);
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
 
-
+	//画天空盒
 	CBChangesEveryFrame cb_sky;
 	XMVECTOR v2 = g_Camera.GetEyePos();
 	XMStoreFloat4(&v2F, v2);
@@ -508,14 +507,11 @@ void Graphic::Render()
 	CBChangesEveryFrame cb;
 	cb.mWorld = XMMatrixTranspose(g_World);
 	g_pImmediateContext->UpdateSubresource(g_pCBChangesEveryFrame, 0, NULL, &cb, 0, 0);
-	//ID3D11ShaderResourceView* tex = g_renderSadowTexture->GetShaderResourceView();
-	//g_pImmediateContext->PSSetShaderResources(0, 1, &tex);
-	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead1);
+	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead);
 	g_pImmediateContext->DrawIndexed(6, 0, 0);//162---------------------------------------
 
 	//car back
-
-	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead1);
+	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarHead);
 	g_pImmediateContext->DrawIndexed(6, 6, 0);
 	//carside
 	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureCarSide);
@@ -640,21 +636,11 @@ void Graphic::Render()
 
 	//draw ground
 	CBChangesEveryFrame cb5;
-	cb5.mWorld = XMMatrixTranspose(XMMatrixTranslation(-128.0f, 0.0f, -128.0f));
+	cb5.mWorld = XMMatrixIdentity();//XMMatrixTranspose(XMMatrixTranslation(-32.0f, 0.0f, -32.0f));
 	g_pImmediateContext->UpdateSubresource(g_pCBChangesEveryFrame, 0, NULL, &cb5, 0, 0);
 	g_pImmediateContext->PSSetShaderResources(0, 1, &g_pTextureGround);
+	g_pImmediateContext->DrawIndexed(6, 198, 0);
 
-	//g_pImmediateContext->DrawIndexed(6, 198, 0);
-	cbRareChange.flag = 1;
-	g_pImmediateContext->UpdateSubresource(g_pCBRareChanges, 0, NULL, &cbRareChange, 0, 0);
-	g_pImmediateContext->VSSetConstantBuffers(2, 1, &g_pCBRareChanges);
-	g_objModel->Render(g_pImmediateContext);
-	
-	g_pImmediateContext->DrawIndexed(g_objModel->GetIndexCount(),0,0);
-
-	//g_car->PrepareRender();
-	//Present our back buffer to our front buffer
-	
 	g_pSwapChain->Present(0, 0);
 }
 FLOAT Graphic::GenSpeedDelta(int second, int is_pressing)
@@ -672,7 +658,7 @@ FLOAT Graphic::GenSpeedDelta(int second, int is_pressing)
 			data = -1000;
 			up_pressing_second = -1000;
 		}
-		return data * 0.00001;
+		return data * 0.00005;
 	}
 	else
 	{
@@ -680,13 +666,13 @@ FLOAT Graphic::GenSpeedDelta(int second, int is_pressing)
 		{
 			if (data > 1000)
 				data = 1000;
-			return  data * 0.00001;
+			return  data * 0.00005;
 		}
 		else if (data < -100)
 		{
 			if (data < -1000)
 				data = -1000;
-			return  data * 0.00001;
+			return  data * 0.00005;
 		}
 
 		return 0;
@@ -707,7 +693,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 			data = -1000;
 			up_pressing_second = -1000;
 		}
-		return data * 0.0001;
+		return data * 0.0005;
 	}
 	else
 	{
@@ -718,7 +704,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 				data = 1000;
 				up_pressing_second = 1000;
 			}
-			return  data * 0.0001;
+			return  data * 0.0005;
 		}
 		else if (data < -100)
 		{
@@ -727,7 +713,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 				data = -1000;
 				up_pressing_second = -1000;
 			}
-			return  data * 0.0001;
+			return  data * 0.0005;
 		}
 
 		return 0;
@@ -792,7 +778,7 @@ void Graphic::RenderShadow(XMMATRIX world,XMMATRIX view, XMMATRIX proj)
 	g_car->PrepareRender();
 	g_shadowShader->Render(g_pImmediateContext,world,view,proj);
 	g_pImmediateContext->IASetInputLayout(g_pVertexLayout);
-
+	//set the render target back
 	SetRenderTarget();
 }
 void Graphic::SetRenderTarget()

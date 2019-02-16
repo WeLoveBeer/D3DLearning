@@ -4,7 +4,6 @@
 class Camera
 {
 public:
-	//Camera(IDirect3DDevice9* pDevice);
 	Camera();
 	~Camera();
 	inline void SetCameraPosition(XMVECTOR pos) { m_vCameraPosition = pos; };
@@ -12,7 +11,6 @@ public:
 	inline void SetUpVector(XMVECTOR vec) { m_vTempUp = vec; };
 	XMMATRIX GetViewMatrix(); 
 	XMMATRIX GetProjMatrix();
-	//inline void SetDevice(IDirect3DDevice9* device) { m_pDevice = device; };
 	void SetProjParameter(FLOAT fovy,FLOAT aspect,FLOAT znear,FLOAT zfar);
 	void RotateRight(FLOAT degree);
 	void RotateUp(FLOAT degree);
@@ -26,7 +24,6 @@ public:
 	void Initialize(XMVECTOR,XMVECTOR,XMVECTOR);
 	void MakeTransform(XMMATRIX m);
 
-	//IDirect3DDevice9* m_pDevice;
 	XMVECTOR m_vRight;
 	XMVECTOR m_vUp;
 	XMVECTOR m_vLookAt;
@@ -42,6 +39,7 @@ public:
 	XMMATRIX m_matView;
 	XMMATRIX m_matProj;
 private:
+	//º∆À„viewæÿ’Û
 	void calcViewMatrix();
 	void calcProjMatrix();
 public:

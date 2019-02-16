@@ -1,3 +1,6 @@
+/*
+本类负责把汽车的深度信息存储到2D纹理中
+*/
 #pragma once
 #include <d3d11.h>
 #include <xnamath.h>

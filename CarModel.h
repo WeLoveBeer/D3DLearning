@@ -1,8 +1,12 @@
+/*
+CarModel类：场景中所有的顶点及索引数据都写在这里
+准备好vsbuffer 和index buffer
+*/
 #pragma once
 #include <d3d11.h>
 #include <d3dx11.h>
 #include <xnamath.h>
-#include "common.h"
+#include "misc.h"
 class CarModel
 {
 public:

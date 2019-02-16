@@ -32,17 +32,6 @@ bool ShadowShader::Initialize(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 		&vertexShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
-		// If the shader failed to compile it should have writen something to the error message.
-		if (errorMessage)
-		{
-			//OutputShaderErrorMessage(errorMessage, hwnd, vsFilename);
-		}
-		// If there was nothing in the error message then it simply could not find the shader file itself.
-		else
-		{
-			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
-		}
-
 		return false;
 	}
 
@@ -51,17 +40,6 @@ bool ShadowShader::Initialize(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 		&pixelShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
-		// If the shader failed to compile it should have writen something to the error message.
-		if (errorMessage)
-		{
-			//OutputShaderErrorMessage(errorMessage, hwnd, psFilename);
-		}
-		// If there was nothing in the error message then it simply could not find the file itself.
-		else
-		{
-			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
-		}
-
 		return false;
 	}
 
@@ -78,8 +56,6 @@ bool ShadowShader::Initialize(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 	{
 		return false;
 	}
-
-
 
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -121,22 +97,39 @@ bool ShadowShader::Initialize(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 }
 void ShadowShader::Render(ID3D11DeviceContext* deviceContext, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
 {
-	// Set the vertex input layout.
+	
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	MatrixBufferType* dataPtr;
+	HRESULT result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result))
+	{
+		return ;
+	}
+
+	// Get a pointer to the data in the constant buffer.
+	dataPtr = (MatrixBufferType*)mappedResource.pData;
+
+	// Copy the matrices into the constant buffer.
+	dataPtr->world = XMMatrixTranspose(world);
+	dataPtr->view = XMMatrixTranspose(view);
+	dataPtr->projection = XMMatrixTranspose(proj);
+
+	// Unlock the constant buffer.
+	deviceContext->Unmap(m_matrixBuffer, 0);
+
+	// Set the position of the constant buffer in the vertex shader.
+	int bufferNumber = 0;
+
+	// Now set the constant buffer in the vertex shader with the updated values.
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
+
 	deviceContext->IASetInputLayout(m_layout);
 
 	// Set the vertex and pixel shaders that will be used to render this triangle.
 	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
 	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
-	//to writh
-	MatrixBufferType cbBuffer;
-	cbBuffer.world = world;
-	cbBuffer.view = view;
+	//只绘车顶的部分
+	deviceContext->DrawIndexed(66, 0, 0);
+
 	
-	cbBuffer.projection = XMMatrixOrthographicLH(800.0f, 600.0f, 0.01f, 1000.0f);;
-
-	deviceContext->UpdateSubresource(m_matrixBuffer, 0, NULL, &cbBuffer, 0, 0);
-	deviceContext->VSSetConstantBuffers(0, 1, &m_matrixBuffer);
-
-	deviceContext->DrawIndexed(0, 66, 0);
-
 }

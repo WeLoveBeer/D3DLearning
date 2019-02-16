@@ -1,7 +1,6 @@
 #include "RenderShadowTexture.h"
 
 
-
 RenderShadowTexture::RenderShadowTexture()
 {
 }
@@ -115,15 +114,11 @@ bool RenderShadowTexture::Initialize(ID3D11Device* device, int textureWidth, int
 	m_viewport.TopLeftX = 0.0f;
 	m_viewport.TopLeftY = 0.0f;
 
-	// Setup the projection matrix.
-	//D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, ((float)D3DX_PI / 4.0f), ((float)textureWidth / (float)textureHeight), screenNear, screenDepth);
-
-	// Create an orthographic projection matrix for 2D rendering.
-	//D3DXMatrixOrthoLH(&m_orthoMatrix, (float)textureWidth, (float)textureHeight, screenNear, screenDepth);
+	
 	m_orthoMatrix = XMMatrixOrthographicLH(800.0f,600.0f,0.01f,1000.0f);
 	return true;
 }
-
+//用于把rendertarget对象绑定到管线 
 void RenderShadowTexture::SetRenderTarget(ID3D11DeviceContext* deviceContext)
 {
 	// Bind the render target view and depth stencil buffer to the output render pipeline.
