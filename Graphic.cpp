@@ -658,7 +658,7 @@ FLOAT Graphic::GenSpeedDelta(int second, int is_pressing)
 			data = -1000;
 			up_pressing_second = -1000;
 		}
-		return data * 0.00005;
+		return data * 0.00001;
 	}
 	else
 	{
@@ -666,13 +666,13 @@ FLOAT Graphic::GenSpeedDelta(int second, int is_pressing)
 		{
 			if (data > 1000)
 				data = 1000;
-			return  data * 0.00005;
+			return  data * 0.00001;
 		}
 		else if (data < -100)
 		{
 			if (data < -1000)
 				data = -1000;
-			return  data * 0.00005;
+			return  data * 0.00001;
 		}
 
 		return 0;
@@ -693,7 +693,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 			data = -1000;
 			up_pressing_second = -1000;
 		}
-		return data * 0.0005;
+		return data * 0.0001;
 	}
 	else
 	{
@@ -704,7 +704,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 				data = 1000;
 				up_pressing_second = 1000;
 			}
-			return  data * 0.0005;
+			return  data * 0.0001;
 		}
 		else if (data < -100)
 		{
@@ -713,7 +713,7 @@ FLOAT Graphic::GenRotateDelta(int second, int is_pressing)
 				data = -1000;
 				up_pressing_second = -1000;
 			}
-			return  data * 0.0005;
+			return  data * 0.0001;
 		}
 
 		return 0;
